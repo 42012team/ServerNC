@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="ojdbc7">
+    <CLASSES>
+      <root url="jar://D:/app/User/product/12.1.0/dbhome_1/jdbc/lib/ojdbc7.jar!/" />
+      <root url="file://$USER_HOME$/Documents/Libs/ejb3-persistence.jar" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-annotations-3.0beta1.jar" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$USER_HOME$/Documents/Libs/ejb3-persistence.jar" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Documents/Libs/hibernate-annotations-3.0beta1.jar" recursive="false" />
+  </library>
+</component>

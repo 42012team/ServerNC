@@ -1,0 +1,52 @@
+<component name="libraryTable">
+  <library name="Hibernate 5.2.3-5.2.3" type="hibernate">
+    <properties version="5.2.3" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/hibernate-core-5.2.3.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/hibernate-commons-annotations-5.0.1.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/hibernate-jpa-2.1-api-1.0.0.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/antlr-2.7.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/geronimo-jta_1.1_spec-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/javassist-3.20.0-GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/jboss-logging-3.3.0.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/jandex-2.0.0.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/javax.inject-1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/jboss-interceptors-api_1.1_spec-1.0.0.Beta1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/classmate-1.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/el-api-2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/cdi-api-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/DBStorageHibernate/lib/jsr250-api-1.0.jar!/" />
+      <root url="jar://D:/app/User/product/12.1.0/dbhome_1/jdbc/lib/ojdbc7.jar!/" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-annotations-3.0beta1.jar" />
+      <root url="file://$USER_HOME$/Documents/Libs/ejb3-persistence.jar" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/docs/api" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/backends/jgroups/src/main/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/backends/jgroups/src/test/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/backends/jms/src/main/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/backends/jms/src/test/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/build-config/src/main/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/build-config/src/test/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/engine/src/main/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/engine/src/test/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/integrationtest/engine-performance/src/main/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/integrationtest/jms/src/test/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/integrationtest/narayana/src/test/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/integrationtest/osgi/karaf-it/src/test/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/integrationtest/performance/src/test/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/integrationtest/sandbox/src/test/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/integrationtest/spring/src/test/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/integrationtest/wildfly/src/test/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/orm/src/main/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/orm/src/test/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/serialization/avro/src/main/java" />
+      <root url="file://$USER_HOME$/Documents/Libs/hibernate-search-5.5.5.Final-dist/hibernate-search-5.5.5.Final/project/serialization/avro/src/test/java" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/Documents/Libs/ejb3-persistence.jar" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Documents/Libs/hibernate-annotations-3.0beta1.jar" recursive="false" />
+  </library>
+</component>
