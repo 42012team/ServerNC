@@ -1,18 +1,14 @@
-package DAO;
+package classes.DAO;
 
 import classes.model.ActiveService;
 import classes.model.behavior.storages.ActiveServiceStorage;
-import com.sun.org.apache.regexp.internal.RE;
-import hibernateUtil.HibernateUtil;
+import classes.hibernateUtil.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
-/**
- * Created by User on 27.01.2017.
- */
 public class ActiveServiceStorageHibernate implements ActiveServiceStorage {
     @Override
     public List<ActiveService> getActiveServicesByUserId(int userId) {
@@ -41,6 +37,7 @@ public class ActiveServiceStorageHibernate implements ActiveServiceStorage {
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             String hql = "delete from ActiveService where id= ?";
+            session.createQuery(hql).setParameter(0, activeServiceId).executeUpdate();
             session.createQuery(hql).setInteger(0, activeServiceId).executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {

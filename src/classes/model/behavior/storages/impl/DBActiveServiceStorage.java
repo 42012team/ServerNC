@@ -6,7 +6,6 @@ import classes.model.ActiveServiceStatus;
 import classes.model.behavior.storages.ActiveServiceStorage;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -216,7 +215,6 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
                         break;
                 }
 
-                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
                 activeService.setDate(new Date(rs.getTimestamp("TDATE").getTime()));
             }
             ps.close();
@@ -259,9 +257,9 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
                 } else {
                     ps.setString(5, " ");
                 }
-                SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-                String strDate = sdfDate.format(activeServicesList.get(i).getDate());
-                ps.setString(6, strDate);
+                System.out.println("change"+activeServicesList.get(i).getDate().getTime());
+                Timestamp timestamp=new Timestamp(activeServicesList.get(i).getDate().getTime());
+                ps.setTimestamp(6,timestamp);
                 ps.setInt(7, activeServicesList.get(i).getVersion());
                 ps.setInt(8, activeServicesList.get(i).getId());
                 ps.setInt(9, activeServicesList.get(i).getId());
@@ -269,7 +267,7 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
                 ps.setInt(11, activeServicesList.get(i).getServiceId());
                 ps.setString(12, activeServicesList.get(i).getCurrentStatus().toString());
                 ps.setString(13, activeServicesList.get(i).getNewStatus().toString());
-                Timestamp timestamp=new Timestamp(activeServicesList.get(i).getDate().getTime());
+                System.out.println("nrew");
                 ps.setTimestamp(14,timestamp);
                 ps.setInt(15, activeServicesList.get(i).getVersion());
                 ps.executeQuery();

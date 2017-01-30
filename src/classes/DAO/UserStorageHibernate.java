@@ -1,17 +1,13 @@
-package DAO;
+package classes.DAO;
 
 import classes.model.User;
 import classes.model.behavior.storages.UserStorage;
-import hibernateUtil.HibernateUtil;
+import classes.hibernateUtil.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Restrictions;
-import org.hibernate.query.Query;
-
-import java.sql.SQLException;
-import java.util.List;
 
 /**
  * Created by User on 26.01.2017.

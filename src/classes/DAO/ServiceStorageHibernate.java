@@ -1,16 +1,14 @@
-package DAO;
+package classes.DAO;
 
 import classes.model.Service;
 import classes.model.behavior.storages.ServiceStorage;
-import hibernateUtil.HibernateUtil;
+import classes.hibernateUtil.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import java.util.List;
 
-/**
- * Created by User on 26.01.2017.
- */
+
 public class ServiceStorageHibernate implements ServiceStorage {
     @Override
     public List<Service> getAllServices() {

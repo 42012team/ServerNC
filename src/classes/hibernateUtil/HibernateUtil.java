@@ -1,10 +1,9 @@
-package hibernateUtil;
+package classes.hibernateUtil;
 
 
 
 
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 
@@ -22,6 +21,7 @@ public class HibernateUtil {
     static {
         try {
             sessionFactory=new Configuration().configure().buildSessionFactory();
+
        //    sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
             // sessionFactory = new Configuration().configure().buildSessionFactory();
         } catch (Throwable e) {

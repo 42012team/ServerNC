@@ -1,9 +1,9 @@
 package general;
 
 
-import DAO.ActiveServiceStorageHibernate;
-import DAO.ServiceStorageHibernate;
-import DAO.UserStorageHibernate;
+import classes.DAO.ActiveServiceStorageHibernate;
+import classes.DAO.ServiceStorageHibernate;
+import classes.DAO.UserStorageHibernate;
 import classes.model.behavior.storages.ActiveServiceStorage;
 import classes.model.behavior.storages.ServiceStorage;
 import classes.model.behavior.storages.UserStorage;

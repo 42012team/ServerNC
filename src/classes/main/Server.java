@@ -1,8 +1,8 @@
 package classes.main;
 
-import DAO.ActiveServiceStorageHibernate;
-import DAO.ServiceStorageHibernate;
-import DAO.UserStorageHibernate;
+import classes.DAO.ActiveServiceStorageHibernate;
+import classes.DAO.ServiceStorageHibernate;
+import classes.DAO.UserStorageHibernate;
 import classes.activator.Activator;
 import classes.processors.Configuration;
 import classes.processors.ConfigurationXML;
@@ -10,20 +10,13 @@ import classes.processors.Initializer;
 import classes.controllers.ProviderController;
 import classes.processors.RequestProcessor;
 import classes.idgenerator.IdGenerator;
-import classes.idgenerator.IdGeneratorSingleton;
 import classes.idgenerator.IdGeneratorSingletonDB;
-import classes.model.Service;
-import classes.model.ServiceStatus;
-import classes.model.User;
 import classes.model.behavior.managers.ActiveServiceManager;
 import classes.model.behavior.managers.ServiceManager;
 import classes.model.behavior.managers.UserManager;
 import classes.model.behavior.storages.impl.DBActiveServiceStorage;
 import classes.model.behavior.storages.impl.DBServiceStorage;
 import classes.model.behavior.storages.impl.DBUserStorage;
-import classes.model.behavior.storages.impl.XMLActiveServiceStorage;
-import classes.model.behavior.storages.impl.XMLServiceStorage;
-import classes.model.behavior.storages.impl.XMLUserStorage;
 import classes.pessimisticLock.PessimisticLockingThread;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -36,7 +29,7 @@ public class Server {
         try {
             ////JDBC
 
-                 IdGenerator idGenerator = IdGeneratorSingletonDB.getInstance();
+               IdGenerator idGenerator = IdGeneratorSingletonDB.getInstance();
 UserManager userManager = new UserManager(new DBUserStorage(), idGenerator); 
 ServiceManager serviceManager = new ServiceManager(new DBServiceStorage(), idGenerator); 
 ActiveServiceManager activeServiceManager = new ActiveServiceManager(new DBActiveServiceStorage(),idGenerator, serviceManager);
@@ -48,9 +41,8 @@ ActiveServiceManager activeServiceManager = new ActiveServiceManager(new DBActiv
            ServiceManager serviceManager = new ServiceManager(new XMLServiceStorage(), idGenerator);
             ActiveServiceManager activeServiceManager = new ActiveServiceManager(new XMLActiveServiceStorage(),
                    idGenerator, serviceManager);*/
-
             ////HIBERNATE
-          /*  IdGenerator idGenerator = IdGeneratorSingletonDB.getInstance();
+       /*     IdGenerator idGenerator = IdGeneratorSingletonDB.getInstance();
             UserManager userManager = new UserManager(new UserStorageHibernate(), idGenerator);
             ServiceManager serviceManager = new ServiceManager(new ServiceStorageHibernate(), idGenerator);
             ActiveServiceManager activeServiceManager = new ActiveServiceManager(new ActiveServiceStorageHibernate(),
