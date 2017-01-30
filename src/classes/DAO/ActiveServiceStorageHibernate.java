@@ -16,6 +16,7 @@ public class ActiveServiceStorageHibernate implements ActiveServiceStorage {
        List result = null;
         Session session = null;
         try {
+
             session = HibernateUtil.getSessionFactory().openSession();
             Criteria cr = session.createCriteria(ActiveService.class);
              cr.add(Restrictions.eq("userId", userId));

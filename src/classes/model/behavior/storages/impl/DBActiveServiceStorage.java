@@ -20,6 +20,7 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
     public List<ActiveService> getActiveServicesByUserId(int userId) {
         List<ActiveService> activeServiceList = null;
         try {
+
             connection = DBConnection.getInstance().getDataSourse().getConnection();
             String sql = "SELECT *FROM ACTIVESERVICE WHERE USER_ID=?";
             PreparedStatement ps = connection.prepareStatement(sql);

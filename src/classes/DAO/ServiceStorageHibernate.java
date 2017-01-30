@@ -40,6 +40,7 @@ public class ServiceStorageHibernate implements ServiceStorage {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+
             if ((session != null) && (session.isOpen()))
 
                 session.close();
