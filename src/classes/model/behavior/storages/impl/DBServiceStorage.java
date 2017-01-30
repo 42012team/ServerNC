@@ -32,7 +32,7 @@ public class DBServiceStorage implements ServiceStorage {
                 service.setName(rs.getString("SERVICE_NAME"));
                 service.setDescription(rs.getString("DESCRIPTION"));
                 service.setVersion(rs.getInt("VERSION"));
-                service.setType("SERVICE_TYPE");
+                service.setType(rs.getString("SERVICE_TYPE"));
                 String status = rs.getString("SERVICE_STATUS");
                 switch (status) {
                     case "ALLOWED":
@@ -157,7 +157,7 @@ public class DBServiceStorage implements ServiceStorage {
                 service.setName(rs.getString("SERVICE_NAME"));
                 service.setDescription(rs.getString("DESCRIPTION"));
                 service.setVersion(rs.getInt("VERSION"));
-                service.setType("SERVICE_TYPE");
+                service.setType(rs.getString("SERVICE_TYPE"));
                 String status = rs.getString("SERVICE_STATUS");
                 switch (status) {
                     case "ALLOWED":
