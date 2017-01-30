@@ -17,7 +17,7 @@ public class DBServiceStorage implements ServiceStorage {
 
     private Connection connection;
 
-    
+
     @Override
     public List<Service> getAllServices() {
         List<Service> servicesList = null;
