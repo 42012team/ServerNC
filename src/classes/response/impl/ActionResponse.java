@@ -10,6 +10,7 @@ public class ActionResponse implements ResponseDTO, Serializable {
     private long unlockingTIme;
     private boolean isAllowed;
 
+
     private ActionResponse() {
 
     }

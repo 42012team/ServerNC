@@ -6,6 +6,7 @@ import java.io.Serializable;
 //весь класс - для пассивной блокировки
 public class TransmittedActionType implements RequestDTO, Serializable {
 
+
     private String requestType;
     private int id;
     private boolean isCanceled;
