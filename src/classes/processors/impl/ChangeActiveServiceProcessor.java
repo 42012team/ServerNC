@@ -11,6 +11,7 @@ import classes.processors.Initializer;
 import classes.model.ActiveServiceParams;
 import classes.model.ActiveServiceStatus;
 import classes.model.behavior.managers.ActiveServiceManager;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -43,7 +44,7 @@ public class ChangeActiveServiceProcessor implements RequestProcessor, Serializa
         changeActiveService(activeServiceParam.getId(), activeServiceParam.getServiceId(),
                 activeServiceParam.getUserId(), activeServiceParam.getCurrentStatus(),
                 activeServiceParam.getNewStatus(), activeServiceParam.getDate(), initializer.getActiveServiceManager()
-                .getActiveServiceById(activeServiceParam.getId()).getVersion());
+                        .getActiveServiceById(activeServiceParam.getId()).getVersion());
         System.out.println("Изменение подключенной услуги с Id " + activeServiceParam.getId());
         return ActiveServiceResponse.create().withResponseType("activeServices").
                 withActiveServices(initializer.getActiveServiceManager()
@@ -53,18 +54,22 @@ public class ChangeActiveServiceProcessor implements RequestProcessor, Serializa
     @Override
     public ResponseDTO process(RequestDTO request) {
         try {
-            TransmittedActiveServiceParams activeServiceParam = (TransmittedActiveServiceParams) request;
+            TransmittedActiveServiceParams activeServiceParams = (TransmittedActiveServiceParams) request;
             if (initializer.getTypeOfLock().equals("optimistic")) {
                 if ((initializer.getActiveServiceManager()
-                        .getActiveServiceById(activeServiceParam.getId()) != null)
-                        && (initializer.getActiveServiceManager().getActiveServiceById(activeServiceParam.getId())
-                        .getVersion() == activeServiceParam.getVersion())) {
-                    return getResponse(activeServiceParam);
+                        .getActiveServiceById(activeServiceParams.getId()) != null)
+                        && (initializer.getActiveServiceManager().getActiveServiceById(activeServiceParams.getId())
+                        .getVersion() == activeServiceParams.getVersion())) {
+                    return getResponse(activeServiceParams);
                 }
             } else {
-                PessimisticLockingThread.unschedule(activeServiceParam.getId());
-                ActiveServiceResponse activeServiceResponse = getResponse(activeServiceParam);
-                return activeServiceResponse;
+                if (activeServiceParams.getUnlockingTime() > new Date().getTime()) {
+                    ActiveServiceResponse result=getResponse(activeServiceParams);
+                    PessimisticLockingThread.unschedule(activeServiceParams.getId());
+                    return result;
+                } else {
+                    return TransmittedException.create("НЕВОЗМОЖНО ИЗМЕНИТЬ ДАННЫЕ! ИСТЕКЛО ВРЕМЯ ОЖИДАНИЯ ЗАПРОСА!").withExceptionType("exception");
+                }
             }
         } catch (Exception ex) {
             System.out.println("Exception occured!");
@@ -74,7 +79,6 @@ public class ChangeActiveServiceProcessor implements RequestProcessor, Serializa
             }
             return TransmittedException.create("ОШИБКА 404!").withExceptionType("exception");
         }
-
         return TransmittedException.create("НЕВОЗМОЖНО ИЗМЕНИТЬ ДАННЫЕ!").withExceptionType("exception");
     }
 

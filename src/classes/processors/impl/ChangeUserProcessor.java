@@ -1,17 +1,19 @@
 package classes.processors.impl;
 
-import classes.pessimisticLock.PessimisticLockingThread;
 import classes.exceptions.TransmittedException;
-import classes.processors.RequestProcessor;
-import classes.request.RequestDTO;
-import classes.response.ResponseDTO;
-import classes.request.impl.TransmittedUserParams;
-import classes.response.impl.UserResponse;
-import classes.processors.Initializer;
 import classes.model.User;
 import classes.model.UserParams;
 import classes.model.behavior.managers.UserManager;
+import classes.pessimisticLock.PessimisticLockingThread;
+import classes.processors.Initializer;
+import classes.processors.RequestProcessor;
+import classes.request.RequestDTO;
+import classes.request.impl.TransmittedUserParams;
+import classes.response.ResponseDTO;
+import classes.response.impl.UserResponse;
+
 import java.io.Serializable;
+import java.util.Date;
 
 public class ChangeUserProcessor implements RequestProcessor, Serializable {
 
@@ -26,7 +28,7 @@ public class ChangeUserProcessor implements RequestProcessor, Serializable {
     }
 
     private User changeUser(int id, String name, String surname, String email, String phone, String address,
-            String login, String password, int version) {
+                            String login, String password, int version) {
         UserManager userManager = initializer.getUserManager();
         UserParams userParams = UserParams.create()
                 .withName(name)
@@ -73,10 +75,16 @@ public class ChangeUserProcessor implements RequestProcessor, Serializable {
                         }
                     }
                 }
-            } else {
-                UserResponse userResponse = getResponse(userRequestParams);
-                PessimisticLockingThread.unschedule(userResponse.getUserId());
-                return userResponse;
+            }
+            else {
+                if (userRequestParams.getUnlockingTime() > new Date().getTime()) {
+                    UserResponse result = getResponse(userRequestParams);
+                    PessimisticLockingThread.unschedule(userRequestParams.getUserId());
+                    return result;
+                }
+                else {
+                    return TransmittedException.create("НЕВОЗМОЖНО ИЗМЕНИТЬ ДАННЫЕ! ИСТЕКЛО ВРЕМЯ ОЖИДАНИЯ ЗАПРОСА!").withExceptionType("exception");
+                }
             }
 
         } catch (Exception ex) {

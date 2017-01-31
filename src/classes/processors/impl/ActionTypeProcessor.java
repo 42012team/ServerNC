@@ -38,9 +38,9 @@ public class ActionTypeProcessor implements RequestProcessor, Serializable {
             return ActionResponse.create().withIsAllowed(false)
                     .withResponseType("actionType");
         }
-        PessimisticLockingThread.schedule(transmittedActionType.getId());
         return ActionResponse.create().withIsAllowed(true)
-                .withResponseType("actionType");
+                .withResponseType("actionType")
+                .withUnlockingTime(PessimisticLockingThread.schedule(transmittedActionType.getId()));
     }
 
 }

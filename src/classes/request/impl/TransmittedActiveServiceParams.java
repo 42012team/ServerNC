@@ -15,6 +15,7 @@ public class TransmittedActiveServiceParams implements RequestDTO, Serializable 
     private Date date;
     private String requestType;
     private int version;
+    private long unlockingTime;
 
     private TransmittedActiveServiceParams() {
     }
@@ -63,6 +64,11 @@ public class TransmittedActiveServiceParams implements RequestDTO, Serializable 
         return this;
     }
 
+    public TransmittedActiveServiceParams withUnlockingTime(long unlockingTime) {
+        this.unlockingTime = unlockingTime;
+        return this;
+    }
+
     public ActiveServiceStatus getCurrentStatus() {
         return currentStatus;
     }
@@ -95,5 +101,7 @@ public class TransmittedActiveServiceParams implements RequestDTO, Serializable 
     public String getRequestType() {
         return requestType;
     }
+
+    public long getUnlockingTime(){ return unlockingTime; };
 
 }

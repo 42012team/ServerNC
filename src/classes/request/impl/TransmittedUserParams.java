@@ -15,7 +15,9 @@ public class TransmittedUserParams implements RequestDTO, Serializable {
     private String type;
     private Integer userId;
     private int version;
-    public String privilege;
+    private String privilege;
+    private long unlockingTime;
+
 
     private TransmittedUserParams() {
 
@@ -80,6 +82,11 @@ public class TransmittedUserParams implements RequestDTO, Serializable {
         return this;
     }
 
+    public TransmittedUserParams withUnlockingTime(long unlockingTime) {
+        this.unlockingTime = unlockingTime;
+        return this;
+    }
+
     public Integer getUserId() {
         return userId;
     }
@@ -124,4 +131,7 @@ public class TransmittedUserParams implements RequestDTO, Serializable {
     public String getPrivilege() {
         return privilege;
     }
+
+    public long getUnlockingTime(){ return unlockingTime; };
+
 }

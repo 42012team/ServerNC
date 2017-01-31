@@ -14,6 +14,7 @@ public class TransmittedServiceParams implements RequestDTO, Serializable {
     private String serviceType;
     private int userId;
     private int version;
+    private long unlockingTime;
 
     TransmittedServiceParams() {
     }
@@ -62,6 +63,11 @@ public class TransmittedServiceParams implements RequestDTO, Serializable {
         return this;
     }
 
+    public TransmittedServiceParams withUnlockingTime(long unlockingTime) {
+        this.unlockingTime = unlockingTime;
+        return this;
+    }
+
     @Override
     public String getRequestType() {
         return requestType;
@@ -94,4 +100,7 @@ public class TransmittedServiceParams implements RequestDTO, Serializable {
     public int getVersion() {
         return version;
     }
+
+    public long getUnlockingTime(){ return unlockingTime; };
+
 }

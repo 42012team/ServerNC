@@ -1,11 +1,13 @@
 package classes.response.impl;
 
 import classes.response.ResponseDTO;
+
 import java.io.Serializable;
 
 public class ActionResponse implements ResponseDTO, Serializable {
 
     private String responseType;
+    private long unlockingTIme;
     private boolean isAllowed;
 
     private ActionResponse() {
@@ -26,6 +28,11 @@ public class ActionResponse implements ResponseDTO, Serializable {
         return this;
     }
 
+    public ActionResponse withUnlockingTime(long unlockingTime){
+        this.unlockingTIme = unlockingTime;
+        return this;
+    }
+
     @Override
     public String getResponseType() {
         return responseType;
@@ -33,6 +40,10 @@ public class ActionResponse implements ResponseDTO, Serializable {
 
     public boolean isAllowed() {
         return isAllowed;
+    }
+
+    public long getUnlockingTIme() {
+        return unlockingTIme;
     }
 
 }
