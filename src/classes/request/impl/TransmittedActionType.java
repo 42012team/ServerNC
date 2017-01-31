@@ -8,7 +8,7 @@ public class TransmittedActionType implements RequestDTO, Serializable {
 
     private String requestType;
     private int id;
-    boolean isCanceled;
+    private boolean isCanceled;
 
     private TransmittedActionType() {
 
@@ -31,8 +31,8 @@ public class TransmittedActionType implements RequestDTO, Serializable {
     public TransmittedActionType withIsCanceled(boolean isCanceled) {
         this.isCanceled = isCanceled;
         return this;
-
     }
+
 
     @Override
     public String getRequestType() {
@@ -46,5 +46,6 @@ public class TransmittedActionType implements RequestDTO, Serializable {
     public boolean isCanceled() {
         return isCanceled;
     }
+
 
 }
