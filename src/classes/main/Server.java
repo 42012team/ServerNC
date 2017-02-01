@@ -4,20 +4,18 @@ import classes.DAO.ActiveServiceStorageHibernate;
 import classes.DAO.ServiceStorageHibernate;
 import classes.DAO.UserStorageHibernate;
 import classes.activator.Activator;
-import classes.processors.Configuration;
-import classes.processors.ConfigurationXML;
-import classes.processors.Initializer;
 import classes.controllers.ProviderController;
-import classes.processors.RequestProcessor;
 import classes.idgenerator.IdGenerator;
 import classes.idgenerator.IdGeneratorSingletonDB;
 import classes.model.behavior.managers.ActiveServiceManager;
 import classes.model.behavior.managers.ServiceManager;
 import classes.model.behavior.managers.UserManager;
-import classes.model.behavior.storages.impl.DBActiveServiceStorage;
-import classes.model.behavior.storages.impl.DBServiceStorage;
-import classes.model.behavior.storages.impl.DBUserStorage;
 import classes.pessimisticLock.PessimisticLockingThread;
+import classes.processors.Configuration;
+import classes.processors.ConfigurationXML;
+import classes.processors.Initializer;
+import classes.processors.RequestProcessor;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -28,12 +26,12 @@ public class Server {
     public static void main(String[] args) throws IOException {
         try {
             ////JDBC
-
+/*
                IdGenerator idGenerator = IdGeneratorSingletonDB.getInstance();
 UserManager userManager = new UserManager(new DBUserStorage(), idGenerator); 
 ServiceManager serviceManager = new ServiceManager(new DBServiceStorage(), idGenerator); 
 ActiveServiceManager activeServiceManager = new ActiveServiceManager(new DBActiveServiceStorage(),idGenerator, serviceManager);
-
+*/
 
             ////XML
         /*   IdGenerator idGenerator = IdGeneratorSingleton.getInstance();
@@ -42,11 +40,11 @@ ActiveServiceManager activeServiceManager = new ActiveServiceManager(new DBActiv
             ActiveServiceManager activeServiceManager = new ActiveServiceManager(new XMLActiveServiceStorage(),
                    idGenerator, serviceManager);*/
             ////HIBERNATE
-       /*     IdGenerator idGenerator = IdGeneratorSingletonDB.getInstance();
+           IdGenerator idGenerator = IdGeneratorSingletonDB.getInstance();
             UserManager userManager = new UserManager(new UserStorageHibernate(), idGenerator);
             ServiceManager serviceManager = new ServiceManager(new ServiceStorageHibernate(), idGenerator);
             ActiveServiceManager activeServiceManager = new ActiveServiceManager(new ActiveServiceStorageHibernate(),
-                    idGenerator, serviceManager);*/
+                    idGenerator, serviceManager);
             serviceManager.setActiveServiceManager(activeServiceManager);
             Activator activator = new Activator();
             activeServiceManager.setActivator(activator);
@@ -76,5 +74,6 @@ ActiveServiceManager activeServiceManager = new ActiveServiceManager(new DBActiv
                 System.out.println(stackTraceElements[i].toString());
             }
         }
+        System.out.println("ЭТО-ПРОВЕРКА!");
     }
 }
