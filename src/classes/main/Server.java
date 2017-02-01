@@ -74,6 +74,5 @@ ActiveServiceManager activeServiceManager = new ActiveServiceManager(new DBActiv
                 System.out.println(stackTraceElements[i].toString());
             }
         }
-        System.out.println("ЭТО-ПРОВЕРКА!");
     }
 }
