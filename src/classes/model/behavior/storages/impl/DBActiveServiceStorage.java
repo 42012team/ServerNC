@@ -20,7 +20,6 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
     public List<ActiveService> getActiveServicesByUserId(int userId) {
         List<ActiveService> activeServiceList = null;
         try {
-
             connection = DBConnection.getInstance().getDataSourse().getConnection();
             String sql = "SELECT *FROM ACTIVESERVICE WHERE USER_ID=?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -30,7 +29,6 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
             activeServiceList = new ArrayList<ActiveService>();
             while (rs.next()) {
                 i++;
-
                 ActiveService activeService = new ActiveService();
                 activeService.setUserId(rs.getInt("USER_ID"));
                 activeService.setServiceId(rs.getInt("SERVICE_ID"));
@@ -65,22 +63,30 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
                     case "DISCONNECTED":
                         activeService.setNewStatus(ActiveServiceStatus.DISCONNECTED);
                         break;
+                    case " ":
+                        activeService.setNewStatus(null);
+                        break;
                 }
                 activeService.setDate(new Date(rs.getTimestamp("TDATE").getTime()));
-
                 activeServiceList.add(activeService);
             }
-            System.out.println(i);
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
-        }  finally {
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
+        } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
         return activeServiceList;
     }
@@ -95,14 +101,21 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
             ps.executeQuery();
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBServiceStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
     }
 
@@ -150,20 +163,30 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
                     case "DISCONNECTED":
                         activeService.setNewStatus(ActiveServiceStatus.DISCONNECTED);
                         break;
+                    case " ":
+                        activeService.setNewStatus(null);
+                        break;
                 }
                 activeService.setDate(new Date(rs.getTimestamp("TDATE").getTime()));
                 activeServiceList.add(activeService);
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
         return activeServiceList;
     }
@@ -172,7 +195,6 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
     public ActiveService getActiveServiceById(int activeServiceId) {
         ActiveService activeService = null;
         try {
-
             connection = DBConnection.getInstance().getDataSourse().getConnection();
             String sql = "SELECT *FROM ACTIVESERVICE WHERE ACTIVESERVICE_ID=?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -180,7 +202,6 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
             ResultSet rs = ps.executeQuery();
             activeService = new ActiveService();
             while (rs.next()) {
-
                 activeService.setUserId(rs.getInt("USER_ID"));
                 activeService.setServiceId(rs.getInt("SERVICE_ID"));
                 activeService.setId(rs.getInt("ACTIVESERVICE_ID"));
@@ -214,21 +235,25 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
                     case "DISCONNECTED":
                         activeService.setNewStatus(ActiveServiceStatus.DISCONNECTED);
                         break;
+                    case " ":
+                        activeService.setNewStatus(null);
+                        break;
                 }
-
                 activeService.setDate(new Date(rs.getTimestamp("TDATE").getTime()));
             }
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
-        }  finally {
+        } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null,
-                        ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
         return activeService;
     }
@@ -258,29 +283,37 @@ public class DBActiveServiceStorage implements ActiveServiceStorage {
                 } else {
                     ps.setString(5, " ");
                 }
-                System.out.println("change"+activeServicesList.get(i).getDate().getTime());
-                Timestamp timestamp=new Timestamp(activeServicesList.get(i).getDate().getTime());
-                ps.setTimestamp(6,timestamp);
+                Timestamp timestamp = new Timestamp(activeServicesList.get(i).getDate().getTime());
+                ps.setTimestamp(6, timestamp);
                 ps.setInt(7, activeServicesList.get(i).getVersion());
                 ps.setInt(8, activeServicesList.get(i).getId());
                 ps.setInt(9, activeServicesList.get(i).getId());
                 ps.setInt(10, activeServicesList.get(i).getUserId());
                 ps.setInt(11, activeServicesList.get(i).getServiceId());
                 ps.setString(12, activeServicesList.get(i).getCurrentStatus().toString());
-                ps.setString(13, activeServicesList.get(i).getNewStatus().toString());
-                System.out.println("nrew");
-                ps.setTimestamp(14,timestamp);
+                if (activeServicesList.get(i).getNewStatus() != null)
+                    ps.setString(13, activeServicesList.get(i).getNewStatus().toString());
+                else ps.setString(13, " ");
+                ps.setTimestamp(14, timestamp);
                 ps.setInt(15, activeServicesList.get(i).getVersion());
                 ps.executeQuery();
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBActiveServiceStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
         }
     }

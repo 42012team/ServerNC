@@ -25,25 +25,27 @@ public class Server {
     public static void main(String[] args) throws IOException {
         try {
             ////JDBC
-/*
-               IdGenerator idGenerator = IdGeneratorSingletonDB.getInstance();
-UserManager userManager = new UserManager(new DBUserStorage(), idGenerator);
-ServiceManager serviceManager = new ServiceManager(new DBServiceStorage(), idGenerator);
-ActiveServiceManager activeServiceManager = new ActiveServiceManager(new DBActiveServiceStorage(),idGenerator, serviceManager);
-*/
+        /*    IdGenerator idGenerator = IdGeneratorSingletonDB.getInstance();
+            UserManager userManager = new UserManager(new DBUserStorage(), idGenerator);
+            ServiceManager serviceManager = new ServiceManager(new DBServiceStorage(), idGenerator);
+            ActiveServiceManager activeServiceManager = new ActiveServiceManager(new DBActiveServiceStorage(),
+                    idGenerator, serviceManager);
+        */
 
             ////XML
         /*   IdGenerator idGenerator = IdGeneratorSingleton.getInstance();
            UserManager userManager = new UserManager(new XMLUserStorage(), idGenerator);
            ServiceManager serviceManager = new ServiceManager(new XMLServiceStorage(), idGenerator);
             ActiveServiceManager activeServiceManager = new ActiveServiceManager(new XMLActiveServiceStorage(),
-                   idGenerator, serviceManager);*/
+                   idGenerator, serviceManager);
+        */
             ////HIBERNATE
-           IdGenerator idGenerator = IdGeneratorSingletonDB.getInstance();
+            IdGenerator idGenerator = IdGeneratorSingletonDB.getInstance();
             UserManager userManager = new UserManager(new UserStorageHibernate(), idGenerator);
             ServiceManager serviceManager = new ServiceManager(new ServiceStorageHibernate(), idGenerator);
             ActiveServiceManager activeServiceManager = new ActiveServiceManager(new ActiveServiceStorageHibernate(),
                     idGenerator, serviceManager);
+
             serviceManager.setActiveServiceManager(activeServiceManager);
             Activator activator = new Activator();
             activeServiceManager.setActivator(activator);

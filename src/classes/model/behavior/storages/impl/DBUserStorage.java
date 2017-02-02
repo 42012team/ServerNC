@@ -3,12 +3,11 @@ package classes.model.behavior.storages.impl;
 import classes.db.DBConnection;
 import classes.model.User;
 import classes.model.behavior.storages.UserStorage;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DBUserStorage implements UserStorage {
 
@@ -26,14 +25,21 @@ public class DBUserStorage implements UserStorage {
             user = getUserByConditions(ps);
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
         return user;
     }
@@ -42,7 +48,6 @@ public class DBUserStorage implements UserStorage {
     public void storeUser(User user) {
         try {
             connection = DBConnection.getInstance().getDataSourse().getConnection();
-
             String mergeSql = "MERGE INTO USER_ U USING("
                     + "SELECT *FROM dual)"
                     + " ON((select count(*) from user_ where user_id=?)!=0)"
@@ -73,18 +78,24 @@ public class DBUserStorage implements UserStorage {
             ps.setString(19, user.getPassword());
             ps.setInt(20, user.getVersion());
             ps.setString(21, user.getPrivilege());
-            System.out.println("refer");
             ps.executeQuery();
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
 
     }
@@ -94,21 +105,27 @@ public class DBUserStorage implements UserStorage {
         User user = null;
         try {
             connection = DBConnection.getInstance().getDataSourse().getConnection();
-
             String sql = "SELECT *FROM USER_ WHERE USER_ID=?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             user = getUserByConditions(ps);
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
         return user;
     }
@@ -124,14 +141,21 @@ public class DBUserStorage implements UserStorage {
             user = getUserByConditions(ps);
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
         return user;
     }
@@ -155,14 +179,21 @@ public class DBUserStorage implements UserStorage {
                 user.setPrivilege(rs.getString("PRIVILEGE"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
         return user;
     }

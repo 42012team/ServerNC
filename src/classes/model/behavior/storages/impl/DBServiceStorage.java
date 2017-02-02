@@ -4,14 +4,13 @@ import classes.db.DBConnection;
 import classes.model.Service;
 import classes.model.ServiceStatus;
 import classes.model.behavior.storages.ServiceStorage;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DBServiceStorage implements ServiceStorage {
 
@@ -24,7 +23,7 @@ public class DBServiceStorage implements ServiceStorage {
         try {
             servicesList = new ArrayList<Service>();
             connection = DBConnection.getInstance().getDataSourse().getConnection();
-            String sql = "SELECT *FROM SERVICE";
+            String sql = "SELECT *FROM SERVICE ORDER BY SERVICE_TYPE";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -44,18 +43,24 @@ public class DBServiceStorage implements ServiceStorage {
                         break;
                 }
                 servicesList.add(service);
-
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBServiceStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
         return servicesList;
     }
@@ -71,14 +76,21 @@ public class DBServiceStorage implements ServiceStorage {
             service = getServiceByConditions(ps);
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
 
         return service;
@@ -92,7 +104,7 @@ public class DBServiceStorage implements ServiceStorage {
                     + "SELECT *FROM dual)"
                     + " ON((select count(*) from SERVICE where SERVICE_ID=?)!=0)"
                     + " WHEN MATCHED THEN "
-                    + " UPDATE SERVICE_NAME = ?,DESCRIPTION=?,VERSION=?, SERVICE_TYPE=?, "
+                    + " UPDATE SET SERVICE_NAME = ?,DESCRIPTION=?,VERSION=?, SERVICE_TYPE=?, "
                     + "SERVICE_STATUS=? WHERE SERVICE_ID = ? "
                     + " WHEN NOT MATCHED THEN "
                     + "INSERT VALUES(?,?,?,?,?,?)";
@@ -110,18 +122,24 @@ public class DBServiceStorage implements ServiceStorage {
             ps.setString(11, service.getStatus().toString());
             ps.setString(12, service.getType());
             ps.setInt(13, service.getVersion());
-
             ps.executeQuery();
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
     }
 
@@ -136,14 +154,21 @@ public class DBServiceStorage implements ServiceStorage {
             ps.executeQuery();
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(DBServiceStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
 
     }
@@ -171,14 +196,21 @@ public class DBServiceStorage implements ServiceStorage {
 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(DBUserStorage.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Exception occured!");
+                StackTraceElement[] stackTraceElements = ex.getStackTrace();
+                for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                    System.out.println(stackTraceElements[i].toString());
+                }
             }
-
         }
         return service;
     }
