@@ -1,8 +1,5 @@
 package classes.main;
 
-import classes.DAO.ActiveServiceStorageHibernate;
-import classes.DAO.ServiceStorageHibernate;
-import classes.DAO.UserStorageHibernate;
 import classes.activator.Activator;
 import classes.controllers.ProviderController;
 import classes.idgenerator.IdGenerator;
@@ -10,12 +7,14 @@ import classes.idgenerator.IdGeneratorSingletonDB;
 import classes.model.behavior.managers.ActiveServiceManager;
 import classes.model.behavior.managers.ServiceManager;
 import classes.model.behavior.managers.UserManager;
+import classes.model.behavior.storages.impl.ActiveServiceStorageHibernate;
+import classes.model.behavior.storages.impl.ServiceStorageHibernate;
+import classes.model.behavior.storages.impl.UserStorageHibernate;
 import classes.pessimisticLock.PessimisticLockingThread;
 import classes.processors.Configuration;
 import classes.processors.ConfigurationXML;
 import classes.processors.Initializer;
 import classes.processors.RequestProcessor;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -28,8 +27,8 @@ public class Server {
             ////JDBC
 /*
                IdGenerator idGenerator = IdGeneratorSingletonDB.getInstance();
-UserManager userManager = new UserManager(new DBUserStorage(), idGenerator); 
-ServiceManager serviceManager = new ServiceManager(new DBServiceStorage(), idGenerator); 
+UserManager userManager = new UserManager(new DBUserStorage(), idGenerator);
+ServiceManager serviceManager = new ServiceManager(new DBServiceStorage(), idGenerator);
 ActiveServiceManager activeServiceManager = new ActiveServiceManager(new DBActiveServiceStorage(),idGenerator, serviceManager);
 */
 

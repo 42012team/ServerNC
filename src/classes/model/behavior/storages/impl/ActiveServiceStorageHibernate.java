@@ -1,4 +1,4 @@
-package classes.DAO;
+package classes.model.behavior.storages.impl;
 
 import classes.model.ActiveService;
 import classes.model.behavior.storages.ActiveServiceStorage;
