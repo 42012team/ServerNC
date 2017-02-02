@@ -16,16 +16,18 @@ public class ActiveServiceStorageHibernate implements ActiveServiceStorage {
        List result = null;
         Session session = null;
         try {
-
             session = HibernateUtil.getSessionFactory().openSession();
             Criteria cr = session.createCriteria(ActiveService.class);
-             cr.add(Restrictions.eq("userId", userId));
+            cr.add(Restrictions.eq("userId", userId));
             result =  cr.list();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             if ((session != null) && (session.isOpen()))
-
                 session.close();
         }
         return result;
@@ -41,14 +43,16 @@ public class ActiveServiceStorageHibernate implements ActiveServiceStorage {
             session.createQuery(hql).setParameter(0, activeServiceId).executeUpdate();
             session.createQuery(hql).setInteger(0, activeServiceId).executeUpdate();
             session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             if ((session != null) && (session.isOpen()))
-
                 session.close();
         }
-
 
     }
 
@@ -60,15 +64,17 @@ public class ActiveServiceStorageHibernate implements ActiveServiceStorage {
             session = HibernateUtil.getSessionFactory().openSession();
             Criteria cr = session.createCriteria(ActiveService.class);
             results = cr.list();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             if ((session != null) && (session.isOpen()))
-
                 session.close();
         }
         return results;
-
     }
 
     @Override
@@ -78,11 +84,14 @@ public class ActiveServiceStorageHibernate implements ActiveServiceStorage {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             result = (ActiveService) session.load(ActiveService.class,activeServiceId);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             if ((session != null) && (session.isOpen()))
-
                 session.close();
         }
         return result;
@@ -93,19 +102,17 @@ public class ActiveServiceStorageHibernate implements ActiveServiceStorage {
         Session session = null;
         try {
             session = HibernateUtil.getSessionFactory().openSession();
-
             for(int i=0;i<activeServicesList.size();i++) {
                 session.beginTransaction();
                 session.merge(activeServicesList.get(i));
                 session.getTransaction().commit();
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if ((session != null) && (session.isOpen()))
-
                 session.close();
         }
     }
+
 }

@@ -5,7 +5,6 @@ import classes.model.behavior.storages.ServiceStorage;
 import classes.hibernateUtil.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-
 import java.util.List;
 
 
@@ -18,16 +17,17 @@ public class ServiceStorageHibernate implements ServiceStorage {
             session = HibernateUtil.getSessionFactory().openSession();
             Criteria cr = session.createCriteria(Service.class);
             results = cr.list();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             if ((session != null) && (session.isOpen()))
-
                 session.close();
         }
         return results;
-
-
     }
 
     @Override
@@ -37,12 +37,14 @@ public class ServiceStorageHibernate implements ServiceStorage {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             result = (Service) session.load(Service.class, ServiceId);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
-
             if ((session != null) && (session.isOpen()))
-
                 session.close();
         }
         return result;
@@ -56,11 +58,14 @@ public class ServiceStorageHibernate implements ServiceStorage {
             session.beginTransaction();
             session.merge(service);
             session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             if ((session != null) && (session.isOpen()))
-
                 session.close();
         }
     }
@@ -74,14 +79,16 @@ public class ServiceStorageHibernate implements ServiceStorage {
             String hql = "delete from Service where id= ?";
             session.createQuery(hql).setInteger(0, serviceId).executeUpdate();
             session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("Exception occured!");
+            StackTraceElement[] stackTraceElements = ex.getStackTrace();
+            for (int i = stackTraceElements.length - 1; i >= 0; i--) {
+                System.out.println(stackTraceElements[i].toString());
+            }
         } finally {
             if ((session != null) && (session.isOpen()))
-
                 session.close();
         }
-
-
     }
+
 }
