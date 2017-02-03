@@ -10,8 +10,6 @@
         <property name="hibernate.connection.username">sys as sysdba</property>
         <property name="hibernate.connection.password">ada100986</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
-     <!--  <mapping resource="user.hbm.xml"/>
-        <mapping resource="service.hbm.xml"/>-->
         <mapping class="classes.model.User"/>
        <mapping class="classes.model.Service"/>
         <mapping class="classes.model.ActiveService"/>
