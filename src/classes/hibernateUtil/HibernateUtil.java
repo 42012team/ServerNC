@@ -1,36 +1,35 @@
 package classes.hibernateUtil;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaBuilder;
 
 
-
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
-
-/**
- * Created by User on 26.01.2017.
- */
 public class HibernateUtil {
+    private static final String PERSISTENT_UNIT_NAME = "Hibernate_JPA";
 
-    private static SessionFactory sessionFactory=null;
-
-    private HibernateUtil() {
-    }
+    private static final EntityManagerFactory emFactory;
 
     static {
         try {
-            sessionFactory=new Configuration().configure().buildSessionFactory();
-        } catch (Throwable e) {
-            throw new ExceptionInInitializerError(e);
-
-
+            emFactory = Persistence.createEntityManagerFactory(PERSISTENT_UNIT_NAME);
+        } catch (Throwable ex) {
+            throw new ExceptionInInitializerError(ex);
         }
-
     }
 
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
+    public static CriteriaBuilder getCriteriaBuilder() {
+        CriteriaBuilder builder = emFactory.getCriteriaBuilder();
+        return builder;
+    }
+
+    public static EntityManager getEntityManager() {
+        return emFactory.createEntityManager();
     }
 
 
 }
+
+
+

@@ -1,24 +1,24 @@
 package classes.model.behavior.storages.impl;
 
+import classes.hibernateUtil.HibernateUtil;
 import classes.model.User;
 import classes.model.behavior.storages.UserStorage;
-import classes.hibernateUtil.HibernateUtil;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.LogicalExpression;
-import org.hibernate.criterion.Restrictions;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 
 public class UserStorageHibernate implements UserStorage {
     @Override
     public void storeUser(User user) {
-        Session session = null;
+        EntityManager entityManager = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            session.merge(user);
-            session.getTransaction().commit();
+            entityManager = HibernateUtil.getEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.merge(user);
+            entityManager.getTransaction().commit();
         } catch (Exception ex) {
             System.out.println("Exception occured!");
             StackTraceElement[] stackTraceElements = ex.getStackTrace();
@@ -26,8 +26,7 @@ public class UserStorageHibernate implements UserStorage {
                 System.out.println(stackTraceElements[i].toString());
             }
         } finally {
-            if ((session != null) && (session.isOpen()))
-                session.close();
+            entityManager.close();
         }
     }
 
@@ -35,10 +34,10 @@ public class UserStorageHibernate implements UserStorage {
     @Override
     public User getUserById(int id) {
         User result = null;
-        Session session = null;
+        EntityManager entityManager = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            result = (User) session.load(User.class, id);
+            entityManager = HibernateUtil.getEntityManager();
+            result = (User) entityManager.find(User.class, id);
         } catch (Exception ex) {
             System.out.println("Exception occured!");
             StackTraceElement[] stackTraceElements = ex.getStackTrace();
@@ -46,8 +45,7 @@ public class UserStorageHibernate implements UserStorage {
                 System.out.println(stackTraceElements[i].toString());
             }
         } finally {
-            if ((session != null) && (session.isOpen()))
-                session.close();
+            entityManager.close();
         }
         return result;
     }
@@ -55,13 +53,15 @@ public class UserStorageHibernate implements UserStorage {
     @Override
     public User getUserByLogin(String login) {
         User result = null;
-        Session session = null;
+        EntityManager em = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            Criteria cr = session.createCriteria(User.class);
-            cr.add(Restrictions.eq("login", login));
-            if (cr.list().size() > 0)
-                result = (User) cr.list().get(0);
+            CriteriaBuilder builder = HibernateUtil.getCriteriaBuilder();
+            em = HibernateUtil.getEntityManager();
+            CriteriaQuery<User> criteriaQuery = builder.createQuery(User.class);
+            Root<User> userRoot = criteriaQuery.from(User.class);
+            criteriaQuery.select(userRoot);
+            criteriaQuery.where(builder.equal(userRoot.get("login"), login));
+            result = em.createQuery(criteriaQuery).getSingleResult();
         } catch (Exception ex) {
             System.out.println("Exception occured!");
             StackTraceElement[] stackTraceElements = ex.getStackTrace();
@@ -69,24 +69,28 @@ public class UserStorageHibernate implements UserStorage {
                 System.out.println(stackTraceElements[i].toString());
             }
         } finally {
-            if ((session != null) && (session.isOpen()))
-                session.close();
+            em.close();
         }
         return result;
     }
 
     public User getUser(String login, String password) {
         User result = null;
-        Session session = null;
+        EntityManager em = null;
         try {
-            Criterion criterionLogin = Restrictions.eq("login", login);
-            Criterion criterionPassword = Restrictions.eq("password", password);
-            session = HibernateUtil.getSessionFactory().openSession();
-            Criteria cr = session.createCriteria(User.class);
-            LogicalExpression andExp = Restrictions.and(criterionLogin, criterionPassword);
-            cr.add(andExp);
-            if (cr.list().size() > 0)
-                result = (User) cr.list().get(0);
+
+            CriteriaBuilder builder = HibernateUtil.getCriteriaBuilder();
+            em = HibernateUtil.getEntityManager();
+            CriteriaQuery<User> criteriaQuery = builder.createQuery(User.class);
+            Root<User> userRoot = criteriaQuery.from(User.class);
+            Predicate userRestriction = builder.and(
+                    builder.equal(userRoot.get("login"), login),
+                    builder.equal(userRoot.get("password"), password)
+            );
+            criteriaQuery.select(userRoot);
+            criteriaQuery.where(userRestriction);
+            result = em.createQuery(criteriaQuery).getSingleResult();
+
         } catch (Exception ex) {
             System.out.println("Exception occured!");
             StackTraceElement[] stackTraceElements = ex.getStackTrace();
@@ -94,8 +98,7 @@ public class UserStorageHibernate implements UserStorage {
                 System.out.println(stackTraceElements[i].toString());
             }
         } finally {
-            if ((session != null) && (session.isOpen()))
-                session.close();
+            em.close();
         }
         return result;
     }

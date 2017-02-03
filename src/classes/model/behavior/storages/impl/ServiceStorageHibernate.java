@@ -1,10 +1,10 @@
 package classes.model.behavior.storages.impl;
 
+import classes.hibernateUtil.HibernateUtil;
 import classes.model.Service;
 import classes.model.behavior.storages.ServiceStorage;
-import classes.hibernateUtil.HibernateUtil;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 
@@ -12,11 +12,14 @@ public class ServiceStorageHibernate implements ServiceStorage {
     @Override
     public List<Service> getAllServices() {
         List<Service> results = null;
-        Session session = null;
+        EntityManager em = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            Criteria cr = session.createCriteria(Service.class);
-            results = cr.list();
+            CriteriaBuilder builder = HibernateUtil.getCriteriaBuilder();
+            em = HibernateUtil.getEntityManager();
+            CriteriaQuery<Service> criteriaQuery = builder.createQuery(Service.class);
+            Root<Service> serviceRoot = criteriaQuery.from(Service.class);
+            criteriaQuery.select(serviceRoot);
+            results = em.createQuery(criteriaQuery).getResultList();
         } catch (Exception ex) {
             System.out.println("Exception occured!");
             StackTraceElement[] stackTraceElements = ex.getStackTrace();
@@ -24,19 +27,18 @@ public class ServiceStorageHibernate implements ServiceStorage {
                 System.out.println(stackTraceElements[i].toString());
             }
         } finally {
-            if ((session != null) && (session.isOpen()))
-                session.close();
+            em.close();
         }
         return results;
     }
 
     @Override
-    public Service getServiceById(int ServiceId) {
+    public Service getServiceById(int serviceId) {
         Service result = null;
-        Session session = null;
+        EntityManager entityManager = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            result = (Service) session.load(Service.class, ServiceId);
+            entityManager = HibernateUtil.getEntityManager();
+            result = (Service) entityManager.find(Service.class, serviceId);
         } catch (Exception ex) {
             System.out.println("Exception occured!");
             StackTraceElement[] stackTraceElements = ex.getStackTrace();
@@ -44,20 +46,19 @@ public class ServiceStorageHibernate implements ServiceStorage {
                 System.out.println(stackTraceElements[i].toString());
             }
         } finally {
-            if ((session != null) && (session.isOpen()))
-                session.close();
+            entityManager.close();
         }
         return result;
     }
 
     @Override
     public void storeService(Service service) {
-        Session session = null;
+        EntityManager entityManager = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            session.merge(service);
-            session.getTransaction().commit();
+            entityManager = HibernateUtil.getEntityManager();
+            entityManager.getTransaction().begin();
+            entityManager.merge(service);
+            entityManager.getTransaction().commit();
         } catch (Exception ex) {
             System.out.println("Exception occured!");
             StackTraceElement[] stackTraceElements = ex.getStackTrace();
@@ -65,20 +66,22 @@ public class ServiceStorageHibernate implements ServiceStorage {
                 System.out.println(stackTraceElements[i].toString());
             }
         } finally {
-            if ((session != null) && (session.isOpen()))
-                session.close();
+            entityManager.close();
         }
     }
 
     @Override
     public void deleteService(int serviceId) {
-        Session session = null;
+        EntityManager entityManager = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            String hql = "delete from Service where id= ?";
-            session.createQuery(hql).setInteger(0, serviceId).executeUpdate();
-            session.getTransaction().commit();
+            entityManager = HibernateUtil.getEntityManager();
+            CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+            CriteriaDelete<Service> criteria = builder.createCriteriaDelete(Service.class);
+            Root<Service> root = criteria.from(Service.class);
+            criteria.where(builder.equal(root.get("id"), serviceId));
+            entityManager.getTransaction().begin();
+            entityManager.createQuery(criteria).executeUpdate();
+            entityManager.getTransaction().commit();
         } catch (Exception ex) {
             System.out.println("Exception occured!");
             StackTraceElement[] stackTraceElements = ex.getStackTrace();
@@ -86,9 +89,7 @@ public class ServiceStorageHibernate implements ServiceStorage {
                 System.out.println(stackTraceElements[i].toString());
             }
         } finally {
-            if ((session != null) && (session.isOpen()))
-                session.close();
+            entityManager.close();
         }
     }
-
 }
