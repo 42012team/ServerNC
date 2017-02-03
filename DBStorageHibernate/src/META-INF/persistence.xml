@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+   http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+    <persistence-unit name="Hibernate_JPA" transaction-type="RESOURCE_LOCAL">
+
+        <class>classes.model.User</class>
+
+        <properties>
+            <property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver"/>
+            <property name="hibernate.connection.url" value="jdbc:oracle:thin:@Localhost:1521:orcldb1"/>
+            <property name="hibernate.connection.username" value="sys as sysdba"/>
+            <property name="hibernate.connection.password" value="ada100986"/>
+            <property name="hibernate.logging.level" value="FINE"/>
+            <property name="hibernate.ddl-generation" value="create-tables"/>
+        </properties>
+
+    </persistence-unit>
+</persistence>
